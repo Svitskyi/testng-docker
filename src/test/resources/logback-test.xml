@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="true">
+
+    <!--CONSOLE LOGGING-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- On Windows machines setting withJansi to true enables ANSI
+             color code interpretation by the Jansi library. This requires
+             org.fusesource.jansi:jansi:1.8 on the class path.  Note that
+             Unix-based operating systems such as Linux and Mac OS X
+             support ANSI color codes by default. -->
+        <withJansi>true</withJansi>
+        <encoder>
+            <pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <!--TO FILE LOGGING-->
+    <!--<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--<file>/srv/logs/application.log</file>-->
+    <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--&lt;!&ndash; daily rollover. Make sure the path matches the one in the file element or else-->
+    <!--the rollover logs are placed in the working directory. &ndash;&gt;-->
+    <!--<fileNamePattern>/srv/logs/application_%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
+
+    <!--<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
+    <!--<maxFileSize>5MB</maxFileSize>-->
+    <!--</timeBasedFileNamingAndTriggeringPolicy>-->
+    <!--&lt;!&ndash; keep 30 days' worth of history &ndash;&gt;-->
+    <!--<maxHistory>30</maxHistory>-->
+    <!--</rollingPolicy>-->
+
+    <!--<encoder>-->
+    <!--<charset>UTF-8</charset>-->
+    <!--<pattern>[%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>-->
+    <!--</encoder>-->
+    <!--</appender>-->
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <!--Uncomment this to write to file-->
+        <!--<appender-ref ref="FILE"/>-->
+    </root>
+</configuration>

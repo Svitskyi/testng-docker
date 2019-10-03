@@ -1,0 +1,93 @@
+package com.test;
+
+import com.test.pages.GooglePage;
+import io.qameta.allure.Attachment;
+import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.IHookCallBack;
+import org.testng.IHookable;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+@Listeners({
+        SetupEnvironment.class,
+        TestOrderRandomizer.class
+})
+public class BaseTest implements IHookable {
+
+    private static final ThreadLocal<WebDriver> WEB_DRIVER_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriverWait> WEB_DRIVER_WAIT_THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<GooglePage> TEST_PAGE_THREAD_LOCAL = new ThreadLocal<>();
+
+    @BeforeMethod
+    public void setUp() throws MalformedURLException {
+        WebDriver remoteWebDriver;
+        switch (System.getenv("BROWSER")) {
+            case "chrome":
+                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new ChromeOptions());
+                break;
+            case "firefox":
+                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new FirefoxOptions());
+                break;
+            default:
+                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new ChromeOptions());
+                break;
+        }
+        remoteWebDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
+        WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
+        TEST_PAGE_THREAD_LOCAL.set(new GooglePage(getWebDriver(), getWebDriverWait()));
+
+        getTestPage().openPage();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        getTestPage().closePage();
+        TEST_PAGE_THREAD_LOCAL.remove();
+    }
+
+    public GooglePage getTestPage() {
+        return TEST_PAGE_THREAD_LOCAL.get();
+    }
+
+    private static WebDriver getWebDriver() {
+        return WEB_DRIVER_THREAD_LOCAL.get();
+    }
+
+    private static WebDriverWait getWebDriverWait() {
+        return WEB_DRIVER_WAIT_THREAD_LOCAL.get();
+    }
+
+    @Override
+    public void run(IHookCallBack callBack, ITestResult testResult) {
+
+        callBack.runTestMethod(testResult);
+        if (testResult.getThrowable() != null) {
+            try {
+                takeScreenShot(testResult.getMethod().getMethodName());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Attachment(value = "Failure in method {0}", type = "image/png")
+    private byte[] takeScreenShot(String methodName) throws IOException {
+        return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+}
