@@ -11,5 +11,3 @@ before_install:
   - whoami && printenv
 script:
   - chmod +x run.sh && bash run.sh
-env:
-  - MAVEN_OPTS="-Xms2048m -Xmx=2048m"
