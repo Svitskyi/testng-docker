@@ -6,7 +6,7 @@ branches:
   - master
 language: java
 jdk:
-  - openjdk13
+  - openjdk8
 before_install:
   - whoami && printenv
 script:
