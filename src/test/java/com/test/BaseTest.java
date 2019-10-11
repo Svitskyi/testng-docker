@@ -58,7 +58,7 @@ public class BaseTest implements IHookable {
         log.info("setting up things for thread: {}", Thread.currentThread().getName());
         WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
         WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
-        TEST_PAGE_THREAD_LOCAL.set(new GooglePage(getWebDriver(), getWebDriverWait()));
+        TEST_PAGE_THREAD_LOCAL.set(new GooglePage("en", getWebDriver(), getWebDriverWait()));
 
         getTestPage().openPage();
     }

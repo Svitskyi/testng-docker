@@ -1,22 +1,21 @@
 package com.test.pages;
 
 import io.qameta.allure.Step;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class GoogleSearchResultsPage  {
+@Slf4j
+public class GoogleSearchResultsPage extends BasePageObject {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    public GoogleSearchResultsPage(WebDriver driver, WebDriverWait wait) {
-        this.driver = driver;
-        this.wait = wait;
+    public GoogleSearchResultsPage(String language, WebDriver webDriver, WebDriverWait webDriverWait) {
+        super(language, webDriver, webDriverWait);
     }
-
 
     @Step("Getting google search results page title")
     public String getPageTitle() {
-        return driver.getTitle();
+        log.info("Getting search page resuls title");
+        return getWebDriver().getTitle();
     }
 }

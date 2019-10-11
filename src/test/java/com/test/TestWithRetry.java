@@ -8,11 +8,19 @@ import org.testng.annotations.Test;
 @Slf4j
 public class TestWithRetry extends BaseTest {
 
+    volatile int count = 0;
+
     @Test
     @Description("This test will retry and fail")
     public void testWillRetry() {
 
-        getTestPage().googleSearch("You see me retrying");
-        Assert.fail();
+        getTestPage().googleSearch("You see me retrying #" + count);
+        if (++count > 3) {
+            Assert.assertTrue(true);
+        } else {
+            Assert.fail();
+        }
     }
 }
+
+
