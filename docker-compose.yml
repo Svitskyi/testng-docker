@@ -1,0 +1,58 @@
+version: '3'
+services:
+#  dnsdock:
+#    image: "tonistiigi/dnsdock:latest"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock"
+#    ports:
+#      - 53:53/udp
+#    container_name: dnsdock
+#    networks:
+#      - default
+  standalone-chrome:
+    image: "selenium/standalone-chrome:3.141.59-vanadium"
+    volumes:
+      - "/dev/shm:/dev/shm"
+    expose:
+      - "4444"
+    container_name: standalone-chrome
+    networks:
+      - default
+  standalone-firefox:
+    image: "selenium/standalone-firefox:3.141.59-vanadium"
+    volumes:
+      - "/dev/shm:/dev/shm"
+    expose:
+      - "4444"
+    container_name: standalone-firefox
+    networks:
+      - default
+  testng-docker-chrome:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/chrome/allure-results:/allure-results/"
+    depends_on:
+      - standalone-chrome
+#      - dnsdock
+    environment:
+      - MODULE=testng.xml
+      - BROWSER=chrome
+    container_name: testng-docker-chrome
+    networks:
+      - default
+  testng-docker-firefox:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/firefox/allure-results:/allure-results/"
+    depends_on:
+      - standalone-firefox
+#      - dnsdock
+    environment:
+      - MODULE=testng.xml
+      - BROWSER=chrome
+    container_name: testng-docker-firefox
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
