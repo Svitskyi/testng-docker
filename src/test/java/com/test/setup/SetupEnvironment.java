@@ -1,4 +1,4 @@
-package com.test;
+package com.test.setup;
 
 import lombok.extern.slf4j.Slf4j;
 import org.testng.ISuite;
@@ -15,6 +15,5 @@ public class SetupEnvironment implements ISuiteListener {
     @Override
     public void onFinish(ISuite suite) {
         log.info("env is shutting down");
-
     }
 }

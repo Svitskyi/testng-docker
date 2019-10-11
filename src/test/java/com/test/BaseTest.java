@@ -1,6 +1,7 @@
 package com.test;
 
 import com.test.pages.GooglePage;
+import com.test.setup.SetupEnvironment;
 import io.qameta.allure.Attachment;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;
@@ -8,7 +9,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.IHookCallBack;
@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
         SetupEnvironment.class,
         TestOrderRandomizer.class
 })
+@Slf4j
 public class BaseTest implements IHookable {
 
     private static final ThreadLocal<WebDriver> WEB_DRIVER_THREAD_LOCAL = new ThreadLocal<>();
@@ -34,20 +35,27 @@ public class BaseTest implements IHookable {
     private static final ThreadLocal<GooglePage> TEST_PAGE_THREAD_LOCAL = new ThreadLocal<>();
 
     @BeforeMethod
-    public void setUp() throws MalformedURLException {
+    public void setUp() {
         WebDriver remoteWebDriver;
-        switch (System.getenv("BROWSER")) {
-            case "chrome":
-                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new ChromeOptions());
-                break;
-            case "firefox":
-                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new FirefoxOptions());
-                break;
-            default:
-                remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new ChromeOptions());
-                break;
+        String browser = System.getenv("BROWSER");
+        try {
+            switch (browser) {
+                case "chrome":
+                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "standalone-chrome" + ":4444/wd/hub"), new ChromeOptions());
+                    break;
+                case "firefox":
+                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "standalone-firefox" + ":4444/wd/hub"), new FirefoxOptions());
+                    break;
+                default:
+                    throw new RuntimeException(String.format("Browser %s not supported", browser));
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            log.error(e.getMessage());
+            throw new RuntimeException("setup error");
         }
         remoteWebDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        log.info("setting up things for thread: {}", Thread.currentThread().getName());
         WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
         WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
         TEST_PAGE_THREAD_LOCAL.set(new GooglePage(getWebDriver(), getWebDriverWait()));
@@ -57,6 +65,7 @@ public class BaseTest implements IHookable {
 
     @AfterMethod
     public void tearDown() {
+        log.info("tearing down things for thread: {}", Thread.currentThread().getName());
         getTestPage().closePage();
         TEST_PAGE_THREAD_LOCAL.remove();
     }

@@ -13,4 +13,7 @@ ADD target/test-classes/testng.xml testng.xml
 # BROWSER = chrome / firefox
 # MODULE  = order-module / search-module
 
-ENTRYPOINT java -cp testng-docker.jar:testng-docker-tests.jar:libs/* -javaagent:"/libs/aspectjweaver-1.9.4.jar" -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Dbrowser=$BROWSER org.testng.TestNG $MODULE
+ARG aspectjVersion
+ENV aspectjVersion ${aspectjVersion}
+
+ENTRYPOINT java -cp testng-docker.jar:testng-docker-tests.jar:libs/* -javaagent:"/libs/aspectjweaver-$aspectjVersion.jar" -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000 -Dbrowser=$BROWSER org.testng.TestNG $MODULE

@@ -25,7 +25,6 @@ public class GooglePage {
         driver.get("https://www.google.com:443");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         log.info("Page opened");
-        Thread.currentThread().setName(Thread.currentThread().getName() + " : " + String.valueOf(this.hashCode()).substring(0, 6));
         return this;
     }
 
@@ -35,13 +34,12 @@ public class GooglePage {
         log.info("Page closed");
     }
 
-    @Step("Searching google using keyword {keyword}")
+    @Step("Searching google using keyword {keyword} and prompting for results with RETURN key")
     public GoogleSearchResultsPage googleSearch(String keyword) {
         WebElement q = driver.findElement(By.name("q"));
         q.sendKeys(keyword);
         q.sendKeys(Keys.RETURN);
         return new GoogleSearchResultsPage(driver, wait);
     }
-
 
 }

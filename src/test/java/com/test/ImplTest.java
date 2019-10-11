@@ -17,21 +17,20 @@ public class ImplTest extends BaseTest {
 
     @BeforeMethod
     public void testSetup() {
-        log.info(String.format("setup from %s: id %s browser %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
+        log.info(String.format("setup from thread: %s | thread id: %s | browser env %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
     }
 
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with letters")
-    public void googleTest(String keyword) {
-        log.info(String.format("hello from %s: id %s browser %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
+    public void googlePageTestsearch_keywords_letters(String keyword) {
+        log.info(String.format("thread name: %s | thread id %s browser env %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
         GooglePage testPage = getTestPage();
-        log.info("Test class {} hashcode {}", this.getClass().getName(), testPage.hashCode());
-        Assert.assertTrue(testPage.googleSearch(keyword).getPageTitle().contains(keyword), "Oh no");
-        log.info("Test class {} hashcode {}", this.getClass().getName(), testPage.hashCode());
+        log.info("This test class {} and testpage hashcode {}", this.getClass().getName(), testPage.hashCode());
+        Assert.assertTrue(testPage.googleSearch(keyword).getPageTitle().contains(keyword), "Failing test message");
     }
 
     @Test
-    @Ignore("Just ignnored test")
+    @Ignore("Just ignored test")
     @Issue("SWE-123")
     public void ignored() {
 
