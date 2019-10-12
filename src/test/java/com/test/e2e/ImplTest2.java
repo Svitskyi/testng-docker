@@ -1,6 +1,7 @@
-package com.test;
+package com.test.e2e;
 
 
+import com.test.BaseTest;
 import com.test.pages.GooglePage;
 import com.test.pages.GoogleSearchResultsPage;
 import io.qameta.allure.Description;
@@ -11,20 +12,17 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 @Slf4j
-public class ImplTest2 extends BaseTest {
+public class ImplTest2 extends BaseE2eTest {
 
 
-    @BeforeMethod
-    public void testSetup2() {
-        log.info(String.format("setup from thread: %s | thread id: %s | browser env %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
-    }
 
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with numbers")
     public void googlePageTestsearch_keywords_numbers(String keyword) {
-        log.info(String.format("thread name: %s | thread id %s browser env %s", Thread.currentThread().getName(), Thread.currentThread().getId(), System.getenv("BROWSER")));
+        int i = getTestPage().hashCode();
+        log.info("Thread: {} PageHashCode: {}, Browser: {}", Thread.currentThread().getName(), getTestPage().hashCode(), System.getenv("BROWSER"));
         GooglePage testPage = getTestPage();
-        log.info("This test class {} and testpage hashcode {}", this.getClass().getName(), testPage.hashCode());
+        Assert.assertEquals(i, testPage.hashCode());
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);
         Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword), "Failing test message");
     }

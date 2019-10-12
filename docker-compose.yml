@@ -9,48 +9,103 @@ services:
 #    container_name: dnsdock
 #    networks:
 #      - default
-  standalone-chrome:
-    image: "selenium/standalone-chrome:3.141.59-vanadium"
+  selenium-hub:
+    image: selenium/hub:3.141.59-vanadium
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_MAX_SESSION=20
+  chrome:
+    image: selenium/node-chrome:3.141.59-vanadium
     volumes:
-      - "/dev/shm:/dev/shm"
-    expose:
-      - "4444"
-    container_name: standalone-chrome
-    networks:
-      - default
-  standalone-firefox:
-    image: "selenium/standalone-firefox:3.141.59-vanadium"
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=20
+      - NODE_MAX_SESSION=20
+  firefox:
+    image: selenium/node-firefox:3.141.59-vanadium
     volumes:
-      - "/dev/shm:/dev/shm"
-    expose:
-      - "4444"
-    container_name: standalone-firefox
-    networks:
-      - default
-  testng-docker-chrome:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=20
+      - NODE_MAX_SESSION=20
+  testng-docker-chrome-en:
     image: "testng-docker:latest"
     volumes:
-      - "./target/chrome/allure-results:/allure-results/"
+      - "./target/e2e/chrome/en/allure-results:/allure-results/"
     depends_on:
-      - standalone-chrome
+      - selenium-hub
 #      - dnsdock
     environment:
-      - MODULE=testng.xml
+      - MODULE=e2e.xml
       - BROWSER=chrome
-    container_name: testng-docker-chrome
+      - LANGUAGE=en
+    container_name: testng-docker-chrome-en
     networks:
       - default
-  testng-docker-firefox:
+  testng-docker-chrome-fr:
     image: "testng-docker:latest"
     volumes:
-      - "./target/firefox/allure-results:/allure-results/"
+      - "./target/e2e/chrome/fr/allure-results:/allure-results/"
     depends_on:
-      - standalone-firefox
+      - selenium-hub
+#     - dnsdock
+    environment:
+      - MODULE=e2e.xml
+      - BROWSER=chrome
+      - LANGUAGE=fr
+    container_name: testng-docker-chrome-fr
+    networks:
+      - default
+  testng-docker-firefox-en:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/e2e/firefox/en/allure-results:/allure-results/"
+    depends_on:
+      - selenium-hub
 #      - dnsdock
     environment:
-      - MODULE=testng.xml
+      - MODULE=e2e.xml
       - BROWSER=chrome
-    container_name: testng-docker-firefox
+      - LANGUAGE=en
+    container_name: testng-docker-firefox-en
+    networks:
+      - default
+  testng-docker-firefox-fr:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/e2e/firefox/fr/allure-results:/allure-results/"
+    depends_on:
+      - selenium-hub
+#     - dnsdock
+    environment:
+      - MODULE=e2e.xml
+      - BROWSER=chrome
+      - LANGUAGE=fr
+    container_name: testng-docker-firefox-fr
+    networks:
+      - default
+  testng-docker-firefox-it:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/it/firefox/fr/allure-results:/allure-results/"
+    depends_on:
+      - selenium-hub
+  #   - dnsdock
+    environment:
+      - MODULE=it.xml
+      - BROWSER=chrome
+      - LANGUAGE=fr
+    container_name: testng-docker-firefox-it
     networks:
       - default
 networks:

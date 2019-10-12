@@ -108,7 +108,6 @@
                 <version>${dockerfile-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>default</id>
                         <goals>
                             <goal>build</goal>
                         </goals>

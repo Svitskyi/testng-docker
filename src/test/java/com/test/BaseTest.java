@@ -1,7 +1,7 @@
 package com.test;
 
 import com.test.pages.GooglePage;
-import com.test.setup.SetupEnvironment;
+import com.test.e2e.E2eSetupEnvironment;
 import io.qameta.allure.Attachment;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;
@@ -17,14 +17,13 @@ import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 @Listeners({
-        SetupEnvironment.class,
         TestOrderRandomizer.class
 })
 @Slf4j
@@ -35,16 +34,17 @@ public class BaseTest implements IHookable {
     private static final ThreadLocal<GooglePage> TEST_PAGE_THREAD_LOCAL = new ThreadLocal<>();
 
     @BeforeMethod
-    public void setUp() {
+    @Parameters({"url"})
+    public void setUp(String url) {
         WebDriver remoteWebDriver;
         String browser = System.getenv("BROWSER");
         try {
             switch (browser) {
                 case "chrome":
-                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "standalone-chrome" + ":4444/wd/hub"), new ChromeOptions());
+                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "selenium-hub" + ":4444/wd/hub"), new ChromeOptions());
                     break;
                 case "firefox":
-                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "standalone-firefox" + ":4444/wd/hub"), new FirefoxOptions());
+                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "selenium-hub" + ":4444/wd/hub"), new FirefoxOptions());
                     break;
                 default:
                     throw new RuntimeException(String.format("Browser %s not supported", browser));
@@ -58,15 +58,12 @@ public class BaseTest implements IHookable {
         log.info("setting up things for thread: {}", Thread.currentThread().getName());
         WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
         WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
-        TEST_PAGE_THREAD_LOCAL.set(new GooglePage("en", getWebDriver(), getWebDriverWait()));
-
-        getTestPage().openPage();
-    }
+        TEST_PAGE_THREAD_LOCAL.set(new GooglePage(System.getenv("LANGUAGE"), getWebDriver(), getWebDriverWait(), url));
+        }
 
     @AfterMethod
     public void tearDown() {
         log.info("tearing down things for thread: {}", Thread.currentThread().getName());
-        getTestPage().closePage();
         TEST_PAGE_THREAD_LOCAL.remove();
     }
 

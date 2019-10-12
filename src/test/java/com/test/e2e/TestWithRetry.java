@@ -1,12 +1,13 @@
-package com.test;
+package com.test.e2e;
 
+import com.test.BaseTest;
 import io.qameta.allure.Description;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @Slf4j
-public class TestWithRetry extends BaseTest {
+public class TestWithRetry extends BaseE2eTest {
 
     volatile int count = 0;
 

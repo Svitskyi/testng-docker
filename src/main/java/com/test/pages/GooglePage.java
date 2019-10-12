@@ -1,6 +1,8 @@
 package com.test.pages;
 
 import io.qameta.allure.Step;
+import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -12,14 +14,18 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 @Slf4j
 public class GooglePage extends BasePageObject {
 
-    public GooglePage(String language, WebDriver webDriver, WebDriverWait webDriverWait) {
+    @Getter
+    private String url;
+
+    public GooglePage(@NonNull String language, @NonNull WebDriver webDriver, @NonNull WebDriverWait webDriverWait, @NonNull String url) {
         super(language, webDriver, webDriverWait);
+        this.url=url;
     }
 
     @Step("Opening google page")
     public GooglePage openPage() {
         log.info("Opening google page in {} language", getLanguage());
-        getWebDriver().get("https://www.google.com:443");
+        getWebDriver().get(url);
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         log.info("Page opened");
         return this;
