@@ -1,7 +1,6 @@
 package com.test;
 
 import com.test.pages.GooglePage;
-import com.test.e2e.E2eSetupEnvironment;
 import io.qameta.allure.Attachment;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;

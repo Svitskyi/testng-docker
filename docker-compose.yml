@@ -9,64 +9,49 @@ services:
 #    container_name: dnsdock
 #    networks:
 #      - default
-#  selenium-hub:
-#    image: selenium/hub:3.141.59-vanadium
-#    container_name: selenium-hub
-#    ports:
-#      - "4444:4444"
-#    environment:
-#      - GRID_MAX_SESSION=40
-#  chrome:
-#    image: selenium/node-chrome:3.141.59-vanadium
-#    volumes:
-#      - /dev/shm:/dev/shm
-#    depends_on:
-#      - selenium-hub
-#    environment:
-#      - HUB_HOST=selenium-hub
-#      - HUB_PORT=4444
-#      - NODE_MAX_INSTANCES=20
-#      - NODE_MAX_SESSION=20
-#  firefox:
-#    image: selenium/node-firefox:3.141.59-vanadium
-#    volumes:
-#      - /dev/shm:/dev/shm
-#    depends_on:
-#      - selenium-hub
-#    environment:
-#      - HUB_HOST=selenium-hub
-#      - HUB_PORT=4444
-#      - NODE_MAX_INSTANCES=20
-#      - NODE_MAX_SESSION=20
   selenium-hub:
-    image: dosel/zalenium
-#      user: seluser:<gid> # required when running in a swarm without sudo - use the <gid> of docker group of swarm
-    hostname: selenium-hub
+    image: selenium/hub:3.141.59-vanadium
+    container_name: selenium-hub
     ports:
-        - "4444:4444"
-    networks:
-        - default
-    volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /tmp/videos:/home/seluser/videos
+      - "4444:4444"
     environment:
-        - PULL_SELENIUM_IMAGE=true
-        - ZALENIUM_PROXY_CLEANUP_TIMEOUT=1800
-    command: ["start", "--videoRecordingEnabled", "false"]
-  testng-docker-chrome-en:
-    image: "testng-docker:latest"
+      - GRID_MAX_SESSION=20
+  chrome:
+    image: selenium/node-chrome:3.141.59-vanadium
     volumes:
-      - "./target/e2e/chrome/en/allure-results:/allure-results/"
+      - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
-#      - dnsdock
     environment:
-      - MODULE=e2e.xml
-      - BROWSER=chrome
-      - LANGUAGE=en
-    container_name: testng-docker-chrome-en
-    networks:
-      - default
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=20
+      - NODE_MAX_SESSION=20
+  firefox:
+    image: selenium/node-firefox:3.141.59-vanadium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - NODE_MAX_INSTANCES=20
+      - NODE_MAX_SESSION=20
+#  testng-docker-chrome-en:
+#    image: "testng-docker:latest"
+#    volumes:
+#      - "./target/e2e/chrome/en/allure-results:/allure-results/"
+#    depends_on:
+#      - selenium-hub
+##      - dnsdock
+#    environment:
+#      - MODULE=e2e.xml
+#      - BROWSER=chrome
+#      - LANGUAGE=en
+#    container_name: testng-docker-chrome-en
+#    networks:
+#      - default
   testng-docker-chrome-fr:
     image: "testng-docker:latest"
     volumes:
@@ -95,20 +80,20 @@ services:
     container_name: testng-docker-firefox-en
     networks:
       - default
-  testng-docker-firefox-fr:
-    image: "testng-docker:latest"
-    volumes:
-      - "./target/e2e/firefox/fr/allure-results:/allure-results/"
-    depends_on:
-      - selenium-hub
-#     - dnsdock
-    environment:
-      - MODULE=e2e.xml
-      - BROWSER=chrome
-      - LANGUAGE=fr
-    container_name: testng-docker-firefox-fr
-    networks:
-      - default
+#  testng-docker-firefox-fr:
+#    image: "testng-docker:latest"
+#    volumes:
+#      - "./target/e2e/firefox/fr/allure-results:/allure-results/"
+#    depends_on:
+#      - selenium-hub
+##     - dnsdock
+#    environment:
+#      - MODULE=e2e.xml
+#      - BROWSER=chrome
+#      - LANGUAGE=fr
+#    container_name: testng-docker-firefox-fr
+#    networks:
+#      - default
   testng-docker-firefox-it:
     image: "testng-docker:latest"
     volumes:

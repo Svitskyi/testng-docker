@@ -1,14 +1,12 @@
 package com.test.e2e;
 
 
-import com.test.BaseTest;
 import com.test.pages.GooglePage;
 import com.test.pages.GoogleSearchResultsPage;
 import io.qameta.allure.Description;
 import io.qameta.allure.Issue;
 import lombok.extern.slf4j.Slf4j;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
