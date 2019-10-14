@@ -38,21 +38,21 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=20
       - NODE_MAX_SESSION=20
-#  testng-docker-chrome-en:
-#    image: "testng-docker:latest"
-#    volumes:
-#      - "./target/e2e/chrome/en/allure-results:/allure-results/"
-#    depends_on:
-#      - selenium-hub
-##      - dnsdock
-#    environment:
-#      - MODULE=e2e.xml
-#      - BROWSER=chrome
-#      - LANGUAGE=en
-#    container_name: testng-docker-chrome-en
-#    networks:
-#      - default
-  testng-docker-chrome-fr:
+  testng-docker-en-chrome-e2e:
+    image: "testng-docker:latest"
+    volumes:
+      - "./target/e2e/chrome/en/allure-results:/allure-results/"
+    depends_on:
+      - selenium-hub
+ #      - dnsdock
+    environment:
+      - MODULE=e2e.xml
+      - BROWSER=chrome
+      - LANGUAGE=en
+    container_name: testng-docker-en-chrome-e2e
+    networks:
+      - default
+  testng-docker-fr-chrome-e2e:
     image: "testng-docker:latest"
     volumes:
       - "./target/e2e/chrome/fr/allure-results:/allure-results/"
@@ -63,10 +63,10 @@ services:
       - MODULE=e2e.xml
       - BROWSER=chrome
       - LANGUAGE=fr
-    container_name: testng-docker-chrome-fr
+    container_name: testng-docker-fr-chrome-e2e
     networks:
       - default
-  testng-docker-firefox-en:
+  testng-docker-en-firefox-e2e:
     image: "testng-docker:latest"
     volumes:
       - "./target/e2e/firefox/en/allure-results:/allure-results/"
@@ -75,12 +75,12 @@ services:
 #      - dnsdock
     environment:
       - MODULE=e2e.xml
-      - BROWSER=chrome
+      - BROWSER=firefox
       - LANGUAGE=en
-    container_name: testng-docker-firefox-en
+    container_name: testng-docker-en-firefox-e2e
     networks:
       - default
-  testng-docker-firefox-fr:
+  testng-docker-firefox-fr-e2e:
     image: "testng-docker:latest"
     volumes:
       - "./target/e2e/firefox/fr/allure-results:/allure-results/"
@@ -91,10 +91,10 @@ services:
       - MODULE=e2e.xml
       - BROWSER=firefox
       - LANGUAGE=fr
-    container_name: testng-docker-firefox-fr
+    container_name: testng-docker-fr-firefox-e2e
     networks:
       - default
-  testng-docker-firefox-it:
+  testng-docker-fr-firefox-it:
     image: "testng-docker:latest"
     volumes:
       - "./target/it/firefox/fr/allure-results:/allure-results/"
@@ -105,7 +105,7 @@ services:
       - MODULE=it.xml
       - BROWSER=firefox
       - LANGUAGE=fr
-    container_name: testng-docker-firefox-it
+    container_name: testng-docker-fr-firefox-it
     networks:
       - default
 networks:
