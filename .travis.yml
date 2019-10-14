@@ -10,4 +10,4 @@ jdk:
 before_install:
   - whoami && printenv
 script:
-  - docker-compose up
+  - docker-compose up --abort-on-container-exit
