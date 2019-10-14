@@ -46,7 +46,7 @@ services:
       - selenium-hub
  #      - dnsdock
     environment:
-      - MODULE=e2e.xml
+      - MODULE=e2e
       - BROWSER=chrome
       - LANGUAGE=en
     container_name: testng-docker-en-chrome-e2e
@@ -60,7 +60,7 @@ services:
       - selenium-hub
 #     - dnsdock
     environment:
-      - MODULE=e2e.xml
+      - MODULE=e2e
       - BROWSER=chrome
       - LANGUAGE=fr
     container_name: testng-docker-fr-chrome-e2e
@@ -74,7 +74,7 @@ services:
       - selenium-hub
 #      - dnsdock
     environment:
-      - MODULE=e2e.xml
+      - MODULE=e2e
       - BROWSER=firefox
       - LANGUAGE=en
     container_name: testng-docker-en-firefox-e2e
@@ -88,7 +88,7 @@ services:
       - selenium-hub
  #     - dnsdock
     environment:
-      - MODULE=e2e.xml
+      - MODULE=e2e
       - BROWSER=firefox
       - LANGUAGE=fr
     container_name: testng-docker-fr-firefox-e2e
@@ -102,7 +102,7 @@ services:
       - selenium-hub
   #   - dnsdock
     environment:
-      - MODULE=it.xml
+      - MODULE=it
       - BROWSER=firefox
       - LANGUAGE=fr
     container_name: testng-docker-fr-firefox-it

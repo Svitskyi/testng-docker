@@ -4,10 +4,8 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,7 +22,8 @@ public class GooglePage extends BasePageObject {
 
     @Step("Opening google page")
     public GooglePage openPage() {
-        log.info("Opening google page in {} language", getLanguage());
+        Capabilities capabilities = ((RemoteWebDriver) getWebDriver()).getCapabilities();
+        log.info("Opening google page in the following browser: {} and {} language", capabilities.getBrowserName(), getLanguage());
         getWebDriver().get(url);
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         log.info("Page opened");

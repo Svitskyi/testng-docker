@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 @Slf4j
 public class ImplTest4 extends BaseE2eTest {
 
-
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with special chars")
     public void googlePageTestsearch_keywords_special_chars(String keyword) {
@@ -23,7 +22,6 @@ public class ImplTest4 extends BaseE2eTest {
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);
         Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword), "Failing test message");
     }
-
 
     @DataProvider
     public Object[][] keywords() {

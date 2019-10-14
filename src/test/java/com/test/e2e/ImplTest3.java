@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 public class ImplTest3 extends BaseE2eTest {
 
 
-
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with symbols")
     public void googlePageTestsearch_keywords_symbols(String keyword) {
@@ -24,7 +23,6 @@ public class ImplTest3 extends BaseE2eTest {
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);
         Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword), "Failing test message");
     }
-
 
     @DataProvider
     public Object[][] keywords() {

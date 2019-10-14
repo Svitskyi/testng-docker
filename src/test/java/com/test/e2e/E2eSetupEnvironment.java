@@ -7,7 +7,6 @@ import org.testng.ISuiteListener;
 @Slf4j
 public class E2eSetupEnvironment implements ISuiteListener {
 
-
     @Override
     public void onStart(ISuite suite) {
         log.info("e2e env is setting up");

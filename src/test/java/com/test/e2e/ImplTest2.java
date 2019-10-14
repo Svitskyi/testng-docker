@@ -12,8 +12,6 @@ import org.testng.annotations.Test;
 @Slf4j
 public class ImplTest2 extends BaseE2eTest {
 
-
-
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with numbers")
     public void googlePageTestsearch_keywords_numbers(String keyword) {
@@ -24,7 +22,6 @@ public class ImplTest2 extends BaseE2eTest {
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);
         Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword), "Failing test message");
     }
-
 
     @DataProvider
     public Object[][] keywords() {

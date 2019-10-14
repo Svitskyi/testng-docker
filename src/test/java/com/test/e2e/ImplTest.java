@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 @Slf4j
 public class ImplTest extends BaseE2eTest {
 
-
     @Test(dataProvider = "keywords")
     @Description("This is a nice test with letters")
     public void googlePageTestsearch_keywords_letters(String keyword) {
@@ -32,7 +31,6 @@ public class ImplTest extends BaseE2eTest {
     public void ignored() {
 
     }
-
 
     @DataProvider
     public Object[][] keywords() {
