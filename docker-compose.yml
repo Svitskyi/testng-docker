@@ -80,7 +80,7 @@ services:
     container_name: testng-docker-firefox-en
     networks:
       - default
-	testng-docker-firefox-fr:
+  testng-docker-firefox-fr:
     image: "testng-docker:latest"
     volumes:
       - "./target/e2e/firefox/fr/allure-results:/allure-results/"
