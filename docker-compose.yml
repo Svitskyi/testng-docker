@@ -52,48 +52,48 @@ services:
     container_name: testng-docker-en-chrome-e2e
     networks:
       - default
-  testng-docker-fr-chrome-e2e:
-    image: "testng-docker:latest"
-    volumes:
-      - "./target/e2e/chrome/fr/allure-results:/allure-results/"
-    depends_on:
-      - selenium-hub
+#  testng-docker-fr-chrome-e2e:
+ #   image: "testng-docker:latest"
+#    volumes:
+ #     - "./target/e2e/chrome/fr/allure-results:/allure-results/"
+#    depends_on:
+#      - selenium-hub
 #     - dnsdock
-    environment:
-      - MODULE=e2e
-      - BROWSER=chrome
-      - LANGUAGE=fr
-    container_name: testng-docker-fr-chrome-e2e
-    networks:
-      - default
-  testng-docker-en-firefox-e2e:
-    image: "testng-docker:latest"
-    volumes:
-      - "./target/e2e/firefox/en/allure-results:/allure-results/"
-    depends_on:
-      - selenium-hub
+#    environment:
+ #     - MODULE=e2e
+#      - BROWSER=chrome
+ #     - LANGUAGE=fr
+#    container_name: testng-docker-fr-chrome-e2e
+#    networks:
+#      - default
+#  testng-docker-en-firefox-e2e:
+ #   image: "testng-docker:latest"
+#    volumes:
+#      - "./target/e2e/firefox/en/allure-results:/allure-results/"
+#    depends_on:
+ #     - selenium-hub
 #      - dnsdock
-    environment:
-      - MODULE=e2e
-      - BROWSER=firefox
-      - LANGUAGE=en
-    container_name: testng-docker-en-firefox-e2e
-    networks:
-      - default
-  testng-docker-firefox-fr-e2e:
-    image: "testng-docker:latest"
-    volumes:
-      - "./target/e2e/firefox/fr/allure-results:/allure-results/"
-    depends_on:
-      - selenium-hub
+#    environment:
+ #     - MODULE=e2e
+   #   - BROWSER=firefox
+ #     - LANGUAGE=en
+ #  container_name: testng-docker-en-firefox-e2e
+ #  networks:
+ #     - default
+ # testng-docker-firefox-fr-e2e:
+ #   image: "testng-docker:latest"
+   # volumes:
+  #    - "./target/e2e/firefox/fr/allure-results:/allure-results/"
+  #  depends_on:
+   #   - selenium-hub
  #     - dnsdock
-    environment:
-      - MODULE=e2e
-      - BROWSER=firefox
-      - LANGUAGE=fr
-    container_name: testng-docker-fr-firefox-e2e
-    networks:
-      - default
+   # environment:
+   #   - MODULE=e2e
+  #    - BROWSER=firefox
+   #   - LANGUAGE=fr
+  #  container_name: testng-docker-fr-firefox-e2e
+  #  networks:
+ #     - default
   testng-docker-fr-firefox-it:
     image: "testng-docker:latest"
     volumes:
