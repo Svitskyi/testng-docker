@@ -86,7 +86,7 @@ services:
       - "./target/e2e/firefox/fr/allure-results:/allure-results/"
     depends_on:
       - selenium-hub
-      - dnsdock
+#      - dnsdock
     environment:
       - MODULE=e2e
       - BROWSER=firefox
