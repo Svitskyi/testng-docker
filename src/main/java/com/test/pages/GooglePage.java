@@ -8,20 +8,24 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class GooglePage extends BasePageObject {
 
-    @Getter
-    private String url;
+    private GoogleSearchResultsPage googleSearchResultsPage;
 
-    public GooglePage(@NonNull String language, @NonNull WebDriver webDriver, @NonNull WebDriverWait webDriverWait, @NonNull String url) {
-        super(language, webDriver, webDriverWait);
-        this.url=url;
+    @Autowired
+    public GooglePage(WebDriver webDriver, GoogleSearchResultsPage googleSearchResultsPage) {
+        super(webDriver);
+        this.googleSearchResultsPage = googleSearchResultsPage;
     }
 
+
     @Step("Opening google page")
-    public GooglePage openPage() {
+    public GooglePage openPage(String url) {
         Capabilities capabilities = ((RemoteWebDriver) getWebDriver()).getCapabilities();
         log.info("Opening google page in the following browser: {} and {} language", capabilities.getBrowserName(), getLanguage());
         getWebDriver().get(url);
@@ -42,7 +46,7 @@ public class GooglePage extends BasePageObject {
         WebElement q = getWebDriver().findElement(By.name("q"));
         q.sendKeys(keyword);
         q.sendKeys(Keys.RETURN);
-        return new GoogleSearchResultsPage(getLanguage(), getWebDriver(), getWebDriverWait());
+        return googleSearchResultsPage;
     }
 
 }

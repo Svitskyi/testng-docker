@@ -5,6 +5,7 @@ import com.test.pages.GooglePage;
 import com.test.pages.GoogleSearchResultsPage;
 import io.qameta.allure.Description;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ public class ImplTest4 extends BaseE2eTest {
     @Description("This is a nice test with special chars")
     public void googlePageTestsearch_keywords_special_chars(String keyword) {
         int i = getTestPage().hashCode();
-        log.info("Thread: {} PageHashCode: {}, Browser: {}", Thread.currentThread().getName(), getTestPage().hashCode(), System.getenv("BROWSER"));
+        log.info("Thread: {} PageHashCode: {}, Browser: {}", Thread.currentThread().getName(), getTestPage().hashCode(), environment.getProperty("BROWSER"));
         GooglePage testPage = getTestPage();
         Assert.assertEquals(i, testPage.hashCode());
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);

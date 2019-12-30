@@ -5,12 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
 public class GoogleSearchResultsPage extends BasePageObject {
 
-    public GoogleSearchResultsPage(String language, WebDriver webDriver, WebDriverWait webDriverWait) {
-        super(language, webDriver, webDriverWait);
+    public GoogleSearchResultsPage(WebDriver webDriver) {
+        super(webDriver);
     }
 
     @Step("Getting google search results page title")

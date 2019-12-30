@@ -11,18 +11,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logback-classic.version>1.2.3</logback-classic.version>
         <selenium-java.version>3.141.59</selenium-java.version>
-        <testng.version>7.0.0</testng.version>
+        <testng.version>7.1.0</testng.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
         <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
         <lombok.version>1.18.10</lombok.version>
-        <allure.version>2.12.1</allure.version>
+        <allure.version>2.13.1</allure.version>
         <aspectj.version>1.9.4</aspectj.version>
         <commons-io.version>2.6</commons-io.version>
         <testcontainers.version>1.12.2</testcontainers.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.2.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>

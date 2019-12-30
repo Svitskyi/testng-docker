@@ -6,7 +6,6 @@
         <listener class-name="com.test.AnnotationTransformerRetryListener"/>
     </listeners>
     <test name="test e2e 1" parallel="methods" thread-count="2">
-        <parameter name="url" value="https://www.google.com:443"/>
         <packages>
             <package name="com.test.e2e"/>
         </packages>
