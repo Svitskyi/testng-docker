@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class SmokeTest  {
+public class SmokeTest {
 
     @Test
     @Parameters({"url"})

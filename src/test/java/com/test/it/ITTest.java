@@ -31,7 +31,7 @@ public class ITTest extends BaseTest {
     public void afterIt() {
         try {
             getTestPage().closePage();
-        } catch (Exception| Error e) {
+        } catch (Exception | Error e) {
             log.info("Nothing to close");
         }
     }

@@ -58,7 +58,7 @@ public class BaseTest implements IHookable {
         WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
         WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
         TEST_PAGE_THREAD_LOCAL.set(new GooglePage(System.getenv("LANGUAGE"), getWebDriver(), getWebDriverWait(), url));
-        }
+    }
 
     @AfterMethod
     public void tearDown() {

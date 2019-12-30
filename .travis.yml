@@ -8,6 +8,6 @@ language: java
 jdk:
   - openjdk8
 before_install:
-  - whoami && printenv
+  - mvn clean && whoami && printenv
 script:
   - docker-compose up || travis_terminate 0
