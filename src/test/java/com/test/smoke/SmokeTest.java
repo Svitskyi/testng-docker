@@ -1,6 +1,5 @@
 package com.test.smoke;
 
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 

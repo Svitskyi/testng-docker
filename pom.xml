@@ -13,15 +13,15 @@
         <logback-classic.version>1.2.3</logback-classic.version>
         <selenium-java.version>3.141.59</selenium-java.version>
         <testng.version>7.0.0</testng.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
-        <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
         <lombok.version>1.18.10</lombok.version>
-        <allure.version>2.12.1</allure.version>
-        <aspectj.version>1.9.4</aspectj.version>
+        <allure.version>2.13.1</allure.version>
+        <aspectj.version>1.9.5</aspectj.version>
         <commons-io.version>2.6</commons-io.version>
-        <testcontainers.version>1.12.2</testcontainers.version>
-        <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
+        <testcontainers.version>1.12.4</testcontainers.version>
+        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>

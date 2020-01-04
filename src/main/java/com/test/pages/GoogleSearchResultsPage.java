@@ -1,7 +1,6 @@
 package com.test.pages;
 
 import io.qameta.allure.Step;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;

@@ -10,14 +10,14 @@ services:
 #    networks:
 #      - default
   selenium-hub:
-    image: selenium/hub:3.141.59-vanadium
+    image: selenium/hub:3.141.59-yttrium
     container_name: selenium-hub
     ports:
       - "4444:4444"
     environment:
       - GRID_MAX_SESSION=20
   chrome:
-    image: selenium/node-chrome:3.141.59-vanadium
+    image: selenium/node-chrome:3.141.59-yttrium
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -28,7 +28,7 @@ services:
       - NODE_MAX_INSTANCES=20
       - NODE_MAX_SESSION=20
   firefox:
-    image: selenium/node-firefox:3.141.59-vanadium
+    image: selenium/node-firefox:3.141.59-yttrium
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
