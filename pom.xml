@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <logback-classic.version>1.2.3</logback-classic.version>
         <selenium-java.version>3.141.59</selenium-java.version>
-        <testng.version>7.1.0</testng.version>
+        <testng.version>7.0.0</testng.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.1.2</maven-jar-plugin.version>
         <dockerfile-maven-plugin.version>1.4.12</dockerfile-maven-plugin.version>
