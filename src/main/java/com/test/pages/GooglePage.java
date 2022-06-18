@@ -26,6 +26,8 @@ public class GooglePage extends BasePageObject {
         log.info("Opening google page in the following browser: {} and {} language", capabilities.getBrowserName(), getLanguage());
         getWebDriver().get(url);
         getWebDriverWait().until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
+        log.info("Clicking german button");
+        getWebDriver().findElement(By.id("L2AGLb")).click();
         log.info("Page opened");
         return this;
     }

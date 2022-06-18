@@ -14,22 +14,16 @@ import org.testng.annotations.Test;
 @Slf4j
 public class ImplTest extends BaseE2eTest {
 
-    @Test(dataProvider = "keywords")
+    @Test(dataProvider = "keywords", threadPoolSize = 10, invocationCount = 100)
     @Description("This is a nice test with letters")
     public void googlePageTestsearch_keywords_letters(String keyword) {
         int i = getTestPage().hashCode();
-        log.info("Thread: {} PageHashCode: {}, Browser: {}", Thread.currentThread().getName(), getTestPage().hashCode(), System.getenv("BROWSER"));
+        log.info("Thread: {} PageHashCode: {}, Browser: {}", Thread.currentThread().getName(), getTestPage().hashCode(), "chrome");
         GooglePage testPage = getTestPage();
         Assert.assertEquals(i, testPage.hashCode());
         GoogleSearchResultsPage googleSearchResultsPage = testPage.googleSearch(keyword);
-        Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword), "Failing test message");
-    }
-
-    @Test
-    @Ignore("Just ignored test")
-    @Issue("SWE-123")
-    public void ignored() {
-
+        log.info("Page title is {}", googleSearchResultsPage.getPageTitle().contains(keyword));
+        Assert.assertTrue(googleSearchResultsPage.getPageTitle().contains(keyword));
     }
 
     @DataProvider
@@ -37,9 +31,6 @@ public class ImplTest extends BaseE2eTest {
         return new Object[][]{
                 {
                         "abc"
-                },
-                {
-                        "adeasdsad"
                 }
         };
     }

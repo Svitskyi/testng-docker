@@ -36,20 +36,16 @@ public class BaseTest implements IHookable {
     @Parameters({"url"})
     public void setUp(String url) {
         WebDriver remoteWebDriver;
-        String browser = System.getenv("BROWSER");
+        String browser = "chrome";
         try {
             switch (browser) {
                 case "chrome":
-                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "selenium-hub" + ":4444/wd/hub"), new ChromeOptions());
-                    break;
-                case "firefox":
-                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "selenium-hub" + ":4444/wd/hub"), new FirefoxOptions());
+                    remoteWebDriver = new RemoteWebDriver(new URL("http://" + "localhost" + ":4444/wd/hub"), new ChromeOptions());
                     break;
                 default:
                     throw new RuntimeException(String.format("Browser %s not supported", browser));
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
             log.error(e.getMessage());
             throw new RuntimeException("setup error");
         }
@@ -57,7 +53,7 @@ public class BaseTest implements IHookable {
         log.info("setting up things for thread: {}", Thread.currentThread().getName());
         WEB_DRIVER_THREAD_LOCAL.set(remoteWebDriver);
         WEB_DRIVER_WAIT_THREAD_LOCAL.set(new WebDriverWait(remoteWebDriver, 4));
-        TEST_PAGE_THREAD_LOCAL.set(new GooglePage(System.getenv("LANGUAGE"), getWebDriver(), getWebDriverWait(), url));
+        TEST_PAGE_THREAD_LOCAL.set(new GooglePage("en", getWebDriver(), getWebDriverWait(), url));
     }
 
     @AfterMethod

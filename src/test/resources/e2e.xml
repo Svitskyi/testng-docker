@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="example e2e suite 1" verbose="1">
-    <!--https://stackoverflow.com/questions/36413345/automatically-retry-all-tests-3-times-before-failing-them-->
-    <listeners>
-        <listener class-name="com.test.AnnotationTransformerRetryListener"/>
-    </listeners>
     <test name="test e2e 1" parallel="methods" thread-count="2">
         <parameter name="url" value="https://www.google.com:443"/>
         <packages>
