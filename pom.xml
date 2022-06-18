@@ -19,7 +19,7 @@
         <lombok.version>1.18.10</lombok.version>
         <allure.version>2.13.1</allure.version>
         <aspectj.version>1.9.6</aspectj.version>
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <testcontainers.version>1.12.4</testcontainers.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
     </properties>
